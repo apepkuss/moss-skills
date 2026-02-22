@@ -1,0 +1,6 @@
+id,name,age,email,city,salary,is_active
+1,Alice,30,alice@example.com,Beijing,15000.50,true
+2,Bob,25,bob@example.com,Shanghai,12000.00,true
+3,Charlie,35,charlie@example.com,Guangzhou,18000.75,false
+4,Diana,28,diana@example.com,Shenzhen,16500.00,true
+5,Edward,32,edward@example.com,Hangzhou,14000.25,true
