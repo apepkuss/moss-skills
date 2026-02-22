@@ -22,6 +22,7 @@ impl TemperatureUnit {
     }
 }
 
+#[allow(dead_code)]
 #[derive(Debug, Deserialize)]
 pub struct GeoLocation {
     pub lat: f64,
@@ -69,6 +70,7 @@ pub struct Precipitation {
     pub one_hour: Option<f64>,
 }
 
+#[allow(dead_code)]
 #[derive(Debug, Deserialize)]
 pub struct WeatherResponse {
     pub coord: GeoLocation,

@@ -116,7 +116,7 @@ pub async fn get_weather(
 
     // Step 1: Geocoding
     let geocode_url = format!(
-        "http://api.openweathermap.org/geo/1.0/direct?q={}&appid={}&limit=1",
+        "https://api.openweathermap.org/geo/1.0/direct?q={}&appid={}&limit=1",
         urlencoding_encode(location),
         api_key
     );
@@ -140,7 +140,7 @@ pub async fn get_weather(
 
     // Step 2: Current weather
     let weather_url = format!(
-        "http://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid={}&units={}",
+        "https://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid={}&units={}",
         lat, lon, api_key, owm_unit
     );
 
