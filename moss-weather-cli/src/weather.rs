@@ -121,7 +121,13 @@ pub async fn get_weather(
         api_key
     );
     let client = reqwest::Client::new();
-    let geo_resp: serde_json::Value = client.get(&geocode_url).send().await?.error_for_status()?.json().await?;
+    let geo_resp: serde_json::Value = client
+        .get(&geocode_url)
+        .send()
+        .await?
+        .error_for_status()?
+        .json()
+        .await?;
 
     let locations = geo_resp
         .as_array()
@@ -144,7 +150,13 @@ pub async fn get_weather(
         lat, lon, api_key, owm_unit
     );
 
-    let weather: WeatherResponse = client.get(&weather_url).send().await?.error_for_status()?.json().await?;
+    let weather: WeatherResponse = client
+        .get(&weather_url)
+        .send()
+        .await?
+        .error_for_status()?
+        .json()
+        .await?;
 
     Ok(weather)
 }
@@ -171,7 +183,10 @@ mod tests {
 
     fn make_weather_response() -> WeatherResponse {
         WeatherResponse {
-            coord: GeoLocation { lat: 39.9, lon: 116.4 },
+            coord: GeoLocation {
+                lat: 39.9,
+                lon: 116.4,
+            },
             weather: vec![WeatherCondition {
                 main: "Clear".to_string(),
                 description: "clear sky".to_string(),
