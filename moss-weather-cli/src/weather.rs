@@ -121,7 +121,7 @@ pub async fn get_weather(
         api_key
     );
     let client = reqwest::Client::new();
-    let geo_resp: serde_json::Value = client.get(&geocode_url).send().await?.json().await?;
+    let geo_resp: serde_json::Value = client.get(&geocode_url).send().await?.error_for_status()?.json().await?;
 
     let locations = geo_resp
         .as_array()
@@ -144,17 +144,19 @@ pub async fn get_weather(
         lat, lon, api_key, owm_unit
     );
 
-    let weather: WeatherResponse = client.get(&weather_url).send().await?.json().await?;
+    let weather: WeatherResponse = client.get(&weather_url).send().await?.error_for_status()?.json().await?;
 
     Ok(weather)
 }
 
 fn urlencoding_encode(s: &str) -> String {
-    s.chars()
-        .map(|c| match c {
-            ' ' => "+".to_string(),
-            c if c.is_alphanumeric() || "-_.~".contains(c) => c.to_string(),
-            c => format!("%{:02X}", c as u32),
+    s.bytes()
+        .map(|b| match b {
+            b'A'..=b'Z' | b'a'..=b'z' | b'0'..=b'9' | b'-' | b'_' | b'.' | b'~' => {
+                (b as char).to_string()
+            }
+            b' ' => "+".to_string(),
+            b => format!("%{:02X}", b),
         })
         .collect()
 }
@@ -249,5 +251,16 @@ mod tests {
     #[test]
     fn test_wind_direction_northeast() {
         assert_eq!(wind_direction(45.0), "NE");
+    }
+
+    #[test]
+    fn test_format_includes_snow() {
+        let mut resp = make_weather_response();
+        resp.snow = Some(Precipitation {
+            one_hour: Some(1.2),
+        });
+        let output = format_weather_info(&resp, &TemperatureUnit::Celsius);
+        assert!(output.contains("Snow (1h)"));
+        assert!(output.contains("1.2 mm"));
     }
 }
