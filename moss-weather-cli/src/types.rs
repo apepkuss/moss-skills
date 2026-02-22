@@ -40,8 +40,8 @@ pub struct MainData {
     pub feels_like: f64,
     pub temp_min: f64,
     pub temp_max: f64,
-    pub pressure: f64,
-    pub humidity: f64,
+    pub pressure: u32,
+    pub humidity: u8,
 }
 
 #[derive(Debug, Deserialize)]
@@ -71,7 +71,7 @@ pub struct Precipitation {
 
 #[derive(Debug, Deserialize)]
 pub struct WeatherResponse {
-    pub coord: serde_json::Value,
+    pub coord: GeoLocation,
     pub weather: Vec<WeatherCondition>,
     pub main: MainData,
     pub visibility: Option<u32>,
@@ -104,6 +104,11 @@ mod tests {
     }
 
     #[test]
+    fn test_fahrenheit_symbol() {
+        assert_eq!(TemperatureUnit::Fahrenheit.symbol(), "°F");
+    }
+
+    #[test]
     fn test_deserialize_weather_response() {
         let json = r#"{
             "coord": {"lon": 116.3972, "lat": 39.9075},
@@ -111,7 +116,7 @@ mod tests {
             "main": {
                 "temp": 20.5, "feels_like": 19.8,
                 "temp_min": 18.0, "temp_max": 22.0,
-                "pressure": 1013.0, "humidity": 45.0
+                "pressure": 1013, "humidity": 45
             },
             "visibility": 10000,
             "wind": {"speed": 3.5, "deg": 180},
@@ -125,6 +130,8 @@ mod tests {
         let resp: WeatherResponse = serde_json::from_str(json).unwrap();
         assert_eq!(resp.name, "Beijing");
         assert_eq!(resp.main.temp, 20.5);
+        assert_eq!(resp.main.pressure, 1013u32);
+        assert_eq!(resp.main.humidity, 45u8);
         assert_eq!(resp.weather[0].main, "Clear");
         assert_eq!(resp.sys.country.as_deref(), Some("CN"));
     }
