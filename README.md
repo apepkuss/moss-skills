@@ -10,7 +10,6 @@
     - [moss-convert 项目结构](#moss-convert-项目结构)
     - [moss-convert 功能特性](#moss-convert-功能特性)
     - [moss-convert 使用方法](#moss-convert-使用方法)
-  - [构建与发布](#构建与发布)
 
 ## `moss-weather` Skill
 
@@ -121,20 +120,3 @@ moss-convert-cli/                    # 源代码
 | `output` | string | 否 | 输出文件的绝对路径（省略则输出到标准输出） |
 | `--delimiter` / `-d` | string | 否 | CSV 分隔符（默认逗号） |
 | `--encoding` / `-e` | string | 否 | 文件编码（默认 UTF-8） |
-
----
-
-## 构建与发布
-
-通过 GitHub Actions 自动构建，推送 `v*` 标签触发。支持以下平台：
-
-| 平台                | Target                       |
-| ------------------- | ---------------------------- |
-| macOS Apple Silicon | `aarch64-apple-darwin`       |
-| Linux x86_64        | `x86_64-unknown-linux-gnu`   |
-| Linux ARM64         | `aarch64-unknown-linux-gnu`  |
-
-发布产物包含 `SKILL.md` 和编译好的二进制文件：
-
-- `moss-weather-{VERSION}-{TARGET}.tar.gz`
-- `moss-convert-{VERSION}-{TARGET}.tar.gz`
