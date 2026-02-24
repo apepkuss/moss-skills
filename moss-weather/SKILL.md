@@ -5,8 +5,7 @@ description: |
   支持全球城市的实时天气查询，包括温度、湿度、风速、日出日落等信息。
   当用户询问天气、气温、是否下雨、需要穿什么衣服等问题时使用此 skill。
   需要设置 OPENWEATHERMAP_API_KEY 环境变量。
-metadata:
-  required-env: "OPENWEATHERMAP_API_KEY"
+metadata: {"moss":{"requires":{"env":["OPENWEATHERMAP_API_KEY"]},"primaryEnv":"OPENWEATHERMAP_API_KEY"}}
 ---
 
 # Moss Weather Skill
