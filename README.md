@@ -1,5 +1,17 @@
 # Skills for MOSS
 
+- [Skills for MOSS](#skills-for-moss)
+  - [`moss-weather` Skill](#moss-weather-skill)
+    - [moss-weather 项目结构](#moss-weather-项目结构)
+    - [moss-weather 功能特性](#moss-weather-功能特性)
+    - [moss-weather 使用方法](#moss-weather-使用方法)
+    - [moss-weather 输出示例](#moss-weather-输出示例)
+  - [`moss-convert` Skill](#moss-convert-skill)
+    - [moss-convert 项目结构](#moss-convert-项目结构)
+    - [moss-convert 功能特性](#moss-convert-功能特性)
+    - [moss-convert 使用方法](#moss-convert-使用方法)
+  - [构建与发布](#构建与发布)
+
 ## `moss-weather` Skill
 
 一个使用 Rust 编写的命令行天气查询工具，作为 MOSS AI 系统的 Skill 运行。当用户询问天气、气温、是否下雨等问题时，MOSS 会自动调用此工具获取实时数据并给出自然语言回复。
