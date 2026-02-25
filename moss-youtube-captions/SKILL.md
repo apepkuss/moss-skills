@@ -1,9 +1,7 @@
 ---
 name: moss-youtube-captions
-description: |
-  获取 YouTube 视频的字幕/转录文本。
-  支持标准 URL 和短链接格式，纯 Rust 实现，无需安装 yt-dlp 等外部依赖。
-  当用户需要总结视频内容、回答视频相关问题、提取视频信息时使用此 skill。
+description: 获取 YouTube 视频的字幕/转录文本。支持标准 URL 和短链接格式。当用户需要总结视频内容、回答视频相关问题、提取视频信息时使用此 skill。需要安装 yt-dlp。
+metadata: {"moss":{"requires":{"bins":["yt-dlp"]},"install":[{"id":"brew","kind":"brew","formula":"yt-dlp","bins":["yt-dlp"],"label":"Install yt-dlp (brew)"},{"id":"pip","kind":"pip","package":"yt-dlp","bins":["yt-dlp"],"label":"Install yt-dlp (pip)"}]}}
 ---
 
 # Moss YouTube Captions Skill
