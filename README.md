@@ -10,6 +10,10 @@
     - [moss-convert 项目结构](#moss-convert-项目结构)
     - [moss-convert 功能特性](#moss-convert-功能特性)
     - [moss-convert 使用方法](#moss-convert-使用方法)
+  - [`moss-youtube-captions` Skill](#moss-youtube-captions-skill)
+    - [moss-youtube-captions 项目结构](#moss-youtube-captions-项目结构)
+    - [moss-youtube-captions 功能特性](#moss-youtube-captions-功能特性)
+    - [moss-youtube-captions 使用方法](#moss-youtube-captions-使用方法)
 
 ## `moss-weather` Skill
 
@@ -120,3 +124,43 @@ moss-convert-cli/                    # 源代码
 | `output` | string | 否 | 输出文件的绝对路径（省略则输出到标准输出） |
 | `--delimiter` / `-d` | string | 否 | CSV 分隔符（默认逗号） |
 | `--encoding` / `-e` | string | 否 | 文件编码（默认 UTF-8） |
+
+---
+
+## `moss-youtube-captions` Skill
+
+一个使用 Rust 编写的 YouTube 视频字幕获取工具，作为 MOSS AI 系统的 Skill 运行。当用户需要总结视频内容、回答视频相关问题或提取视频信息时，MOSS 会自动调用此工具获取字幕文本。运行时依赖 `yt-dlp`（可通过 `brew install yt-dlp` 安装）。
+
+### moss-youtube-captions 项目结构
+
+```text
+moss-youtube-captions/
+└── SKILL.md                         # Skill 定义文档（随发布包分发）
+
+moss-youtube-captions-cli/           # 源代码
+├── Cargo.toml
+├── Cargo.lock
+└── src/
+    └── main.rs                      # CLI 入口 + 字幕获取与清理逻辑
+```
+
+### moss-youtube-captions 功能特性
+
+- 获取 YouTube 视频的英文字幕/转录文本
+- 支持标准 URL (`youtube.com/watch?v=`) 和短链接 (`youtu.be/`) 格式
+- 自动清理 VTT 格式标记（时间戳、HTML 标签、重复行）
+- 运行时依赖 `yt-dlp`（通过 brew 或 pip 安装）
+
+### moss-youtube-captions 使用方法
+
+```bash
+# 获取视频字幕
+<skill-base-dir>/scripts/moss-youtube-captions "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+
+# 使用短链接
+<skill-base-dir>/scripts/moss-youtube-captions "https://youtu.be/dQw4w9WgXcQ"
+```
+
+| 参数 | 类型 | 必需 | 说明 |
+| --- | --- | --- | --- |
+| `YOUTUBE_URL` | string | 是 | YouTube 视频 URL |
